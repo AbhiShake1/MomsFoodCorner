@@ -1,7 +1,9 @@
 from django.http import HttpRequest, HttpResponse, JsonResponse
 
+from django.views.decorators.csrf import csrf_exempt
 
-# Create your views here.
+
+@csrf_exempt
 def signup(request: HttpRequest) -> JsonResponse:
     username = request.POST.get('username')
     password = request.POST.get('password')
