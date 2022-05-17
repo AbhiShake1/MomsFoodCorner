@@ -1,4 +1,4 @@
-from django.contrib.auth import authenticate
+from django.contrib.auth import authenticate, login
 from django.contrib.auth.models import User
 from django.http import HttpRequest, HttpResponse, JsonResponse
 
@@ -34,7 +34,7 @@ def get_user(_, username: str) -> JsonResponse:
 
 
 @csrf_exempt
-def login(request: HttpRequest) -> JsonResponse:
+def login_user(request: HttpRequest) -> JsonResponse:
     if request.method == 'POST':
         username = request.POST.get('username')
         password = request.POST.get('password')
