@@ -10,8 +10,12 @@ def signup(request: HttpRequest) -> JsonResponse:
     if request.method == 'POST':
         username = request.POST.get('username')
         password = request.POST.get('password')
+        first_name = request.POST.get('firstName')
+        last_name = request.POST.get('lastName')
         try:
-            user: User = User.objects.create_user(username, username, password)
+            user: User = User.objects.create_user(username, username, password,
+                                                  first_name=first_name, last_name=last_name
+                                                  )
             return JsonResponse({
                 'username': user.username,
                 'dateJoined': user.date_joined,
