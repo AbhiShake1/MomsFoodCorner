@@ -22,6 +22,17 @@ def signup(request: HttpRequest) -> JsonResponse:
     return JsonResponse({'Error': 'Only POST Allowed'}, status=403)
 
 
+def get_user(_, username: str) -> JsonResponse:
+    user: User = User.objects.get_by_natural_key(username=username)
+    if user:
+        return JsonResponse({
+            'username': user.username,
+            'dateJoined': user.date_joined,
+            'isAdmin': user.is_superuser,
+        })
+    return JsonResponse({'Error': 'No such user'})
+
+
 @csrf_exempt
 def login(request: HttpRequest) -> JsonResponse:
     if request.method == 'POST':
