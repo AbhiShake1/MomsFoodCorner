@@ -39,9 +39,9 @@ def login(request: HttpRequest) -> JsonResponse:
         username = request.POST.get('username')
         password = request.POST.get('password')
         try:
-            user = authenticate(request, email=username, password=password)
+            user = authenticate(username=username, password=password)
             if user:
-                login(username=username, password=password)
+                login(request, user)
                 return JsonResponse({
                     'username': user.username,
                     'dateJoined': user.date_joined,
